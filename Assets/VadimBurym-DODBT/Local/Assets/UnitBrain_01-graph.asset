@@ -49,11 +49,11 @@ MonoBehaviour:
   - 9b75c566118d4cac89ab5c7988469efe
   - 14c412394340495f8ec22a3b194452b1
   CreationDate: 18.03.2026 21:28:19
-  LastModifiedDate: 24.03.2026 17:14:14
+  LastModifiedDate: 13.04.2026 13:01:20
   CompiledVersion: 24.03.2026 17:14:14
   NodesCount: 34
   LeafNodesCount: 20
-  NotActualCompiledVersion: 0
+  NotActualCompiledVersion: 1
   RootNode:
     Guid: d96a9aa175f94bee998bab161ac3a2b6
     Position: {x: 0, y: 0}
@@ -221,7 +221,7 @@ MonoBehaviour:
     ParentGuid: 52538ee8d23641f980fe2d7b5278cda8
   - Guid: ab87addaa517418cbd855f1106bfd5bc
     Kind: 2
-    Position: {x: 646, y: 754}
+    Position: {x: 618, y: 754}
     Title: Idle
     ParentGuid: 52538ee8d23641f980fe2d7b5278cda8
   - Guid: 8956b24b8edf46f2bbb091efe6e4528d

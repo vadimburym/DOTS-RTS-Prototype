@@ -157,79 +157,239 @@ MonoBehaviour:
     Int0: 1
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 2
     Float0: 0
     Byte0: 3
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 0
     Float0: 0
     Byte0: 1
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 11
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 11
     Float0: 0
     Byte0: 3
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 22
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 22
     Float0: 0
     Byte0: 3
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 33
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 33
     Float0: 0
     Byte0: 3
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 6
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 5
     Int0: 0
     Float0: 0
     Byte0: 1
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 7
     Int0: 0
     Float0: 0
     Byte0: 0
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 3
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 1
     Int0: 0
     Float0: 0
     Byte0: 0
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 6
     Int0: 0
     Float0: 0
     Byte0: 0
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 4
     Float0: 0
     Byte0: 2
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 0
     Int0: 5
     Float0: 0
     Byte0: 3
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 4
     Int0: 0
     Float0: 0
     Byte0: 0
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 3
     Int0: 0
     Float0: 0
     Byte0: 0
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
   - LeafId: 5
     Int0: 0
     Float0: 0
     Byte0: 0
+    Bytes:
+      data:
+        offset0000:
+          byte0000: 0
+          byte0008: 0
+        offset0016:
+          byte0000: 0
+          byte0008: 0
