@@ -6,6 +6,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 using VadimBurym.DodBehaviourTree;
+using VadimBurym.DodBehaviourTree.Generated;
 
 namespace _Project._Code.Gameplay.CoreFeatures.AI.BtLeafs
 {
@@ -21,10 +22,10 @@ namespace _Project._Code.Gameplay.CoreFeatures.AI.BtLeafs
             Greater = 3,
             Equal = 4,
         }
-        
+
         [SerializeField] private float _threshold;
         [SerializeField] private ComparisonId _comparison;
-        
+
         public LeafData GetCompiledData()
         {
             return new LeafData {
@@ -33,15 +34,15 @@ namespace _Project._Code.Gameplay.CoreFeatures.AI.BtLeafs
                 Byte0 = (byte)_comparison,
             };
         }
-        
-        public static NodeStatus OnTick(ref Entity agent, in LeafData leafData, ref LeafStateElement leafState, in BtContext leafContext)
+
+        public static NodeStatus OnTick(ref RunnerState_BtContext state)
         {
             //TODO: now - GREEN, refactoring: вынести логику в сенсор
-            var enemy = leafContext.EyeSensorLookup[agent].DetectedEntity;
-            var agentPosition = leafContext.LocalTransformLookup[agent].Position;
-            var enemyPosition = leafContext.LocalTransformLookup[enemy].Position;
-            var threshold = leafData.Float0;
-            bool comparison = leafData.Byte0 switch
+            var enemy = state.Context.EyeSensorLookup[state.Agent].DetectedEntity;
+            var agentPosition = state.Context.LocalTransformLookup[state.Agent].Position;
+            var enemyPosition = state.Context.LocalTransformLookup[enemy].Position;
+            var threshold = state.LeafData.Float0;
+            bool comparison = state.LeafData.Byte0 switch
             {
                 0 => math.lengthsq(agentPosition - enemyPosition) < threshold * threshold,
                 1 => math.lengthsq(agentPosition - enemyPosition) <= threshold * threshold,
@@ -52,9 +53,9 @@ namespace _Project._Code.Gameplay.CoreFeatures.AI.BtLeafs
             };
             return comparison ? NodeStatus.Success : NodeStatus.Failure;
         }
-        
-        public static void OnEnter(ref Entity agent, in LeafData leafData, ref LeafStateElement leafState, in BtContext leafContext) { }
-        public static void OnExit(ref Entity agent, in LeafData leafData, ref LeafStateElement leafState, in BtContext leafContext) { }
-        public static void OnAbort(ref Entity agent, in LeafData leafData, ref LeafStateElement leafState, in BtContext leafContext) { }
+
+        public static void OnEnter(ref RunnerState_BtContext state) { }
+        public static void OnExit(ref RunnerState_BtContext state) { }
+        public static void OnAbort(ref RunnerState_BtContext state) { }
     }
 }
