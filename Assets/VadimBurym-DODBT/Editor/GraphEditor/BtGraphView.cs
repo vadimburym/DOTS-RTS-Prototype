@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using System;
@@ -22,7 +23,7 @@ internal sealed class BtGraphView : GraphView
     public event Action<string> NodeDataChanged;
     public event Action GraphStructureChanged;
     public bool IsReadOnly { get; private set; }
-    
+
     private IVisualElementScheduledItem _edgeColorUpdateItem;
     private bool _edgeColorsDirty;
     private readonly IEdgeConnectorListener _edgeConnectorListener;
@@ -31,7 +32,7 @@ internal sealed class BtGraphView : GraphView
     private readonly HashSet<string> _visited = new();
     private bool _isBinding;
     private bool _suppressBindLog;
-    
+
     internal BtGraphView(bool isReadOnly)
     {
         IsReadOnly = isReadOnly;
@@ -39,7 +40,7 @@ internal sealed class BtGraphView : GraphView
 
         _edgeConnectorListener = new BtEdgeConnectorListener(this);
         _edgeColorUpdateItem = schedule.Execute(UpdateEdgeColorsIfDirty).Every(16);
-        
+
         var path = BtEditorPaths.GetEditorWindowFolderPath();
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
             path + "/BtGraphView.uss");
@@ -49,7 +50,7 @@ internal sealed class BtGraphView : GraphView
         AddToClassList("bt-graph-view");
 
         SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
-        
+
         var grid = new GridBackground();
         grid.pickingMode = PickingMode.Ignore;
         Insert(0, grid);
@@ -87,10 +88,10 @@ internal sealed class BtGraphView : GraphView
                 menuEvent.menu.AppendAction("Add/Leaf", _ => AddNode(BtNodeKind.Leaf, mousePosition));
             }));
         }
-        
+
         graphViewChanged = OnGraphViewChanged;
     }
-    
+
     internal void SetDebugStatus(NodeStatus[] debugStatus)
     {
         if (GraphAsset == null)
@@ -110,7 +111,7 @@ internal sealed class BtGraphView : GraphView
         if (!_edgeColorsDirty)
             return;
         _edgeColorsDirty = false;
-        
+
         foreach (var edge in edges)
         {
             if (edge == null)
@@ -124,15 +125,15 @@ internal sealed class BtGraphView : GraphView
             var outPort = edge.output;
             if (inPort == null || outPort == null)
                 continue;
-            
+
             ec.inputColor = inPort.portColor;
             ec.outputColor = outPort.portColor;
             ec.MarkDirtyRepaint();
         }
-        
+
         MarkDirtyRepaint();
     }
-    
+
     public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
     {
         if (IsReadOnly)
@@ -174,7 +175,7 @@ internal sealed class BtGraphView : GraphView
     {
         _edgeColorsDirty = true;
     }
-    
+
     public void Bind(BtGraphAsset graphAsset)
     {
         _isBinding = true;
@@ -238,7 +239,7 @@ internal sealed class BtGraphView : GraphView
             _isBinding = false;
         }
     }
-    
+
     public void ReloadWithoutLog()
     {
         if (GraphAsset == null)
@@ -343,13 +344,13 @@ internal sealed class BtGraphView : GraphView
             return;
         if (IsReadOnly)
             return;
-        
+
         if (edge.output?.node is not BtNodeView parentNodeView)
             return;
 
         if (edge.input?.node is not BtNodeView childNodeView)
             return;
-        
+
         if (parentNodeView.Kind == BtNodeKind.Root)
         {
             GraphAsset.RootNode.ChildrenGuid = childNodeView.Guid;
@@ -366,17 +367,17 @@ internal sealed class BtGraphView : GraphView
         int childHeaderIndex = GraphAsset.FindHeaderIndex(childNodeView.Guid);
         if (parentHeaderIndex < 0 || childHeaderIndex < 0)
             return;
-        
+
         BtNodeHeader parentHeader = GraphAsset.Nodes[parentHeaderIndex];
         BtNodeHeader childHeader = GraphAsset.Nodes[childHeaderIndex];
-        
+
         if (!IsComposite(parentHeader.Kind))
             return;
 
         List<string> parentChildren = GraphAsset.GetChildrenList(parentHeader.Guid, parentHeader.Kind);
         if (parentChildren == null)
             return;
-        
+
         if (!string.IsNullOrEmpty(childHeader.ParentGuid) && childHeader.ParentGuid != parentHeader.Guid)
         {
             RemoveChildFromOldParent(childHeader.Guid, childHeader.ParentGuid);
@@ -501,7 +502,7 @@ internal sealed class BtGraphView : GraphView
     {
         if (GraphAsset == null)
             return;
-        
+
         var views = graphElements
             .OfType<BtNodeView>()
             .ToDictionary(view => view.Guid, view => view);
@@ -520,7 +521,7 @@ internal sealed class BtGraphView : GraphView
                 }
             }
         }
-        
+
         foreach (var parentHeader in GraphAsset.Nodes)
         {
             if (!IsComposite(parentHeader.Kind))
@@ -574,7 +575,7 @@ internal sealed class BtGraphView : GraphView
             change.edgesToCreate?.Clear();
             return change;
         }
-        
+
         bool nodeWasDeleted = false;
         bool isAssetDirty = false;
         bool isAssetMovedDirty = false;
@@ -584,7 +585,7 @@ internal sealed class BtGraphView : GraphView
             string rootGuid = GraphAsset.RootNode.Guid;
             change.elementsToRemove.RemoveAll(e => e is BtNodeView node && node.Guid == rootGuid);
         }
-        
+
         if (change.elementsToRemove != null)
         {
             var guidsToDelete = change.elementsToRemove
@@ -602,21 +603,21 @@ internal sealed class BtGraphView : GraphView
                         GraphAsset.RootNode.ChildrenGuid = null;
                     GraphAsset.RemoveTypedDataByGuid(guid);
                 }
-                
+
                 foreach (var remainingHeader in GraphAsset.Nodes.ToArray())
                 {
                     int headerIndex = GraphAsset.FindHeaderIndex(remainingHeader.Guid);
                     if (headerIndex < 0) continue;
 
                     BtNodeHeader fixedHeader = GraphAsset.Nodes[headerIndex];
-                    
+
                     if (!string.IsNullOrEmpty(fixedHeader.ParentGuid) && guidsToDelete.Contains(fixedHeader.ParentGuid))
                     {
                         fixedHeader.ParentGuid = null;
                         GraphAsset.Nodes[headerIndex] = fixedHeader;
                         isAssetDirty = true;
                     }
-                    
+
                     if (IsComposite(fixedHeader.Kind))
                     {
                         List<string> children = GraphAsset.GetChildrenList(fixedHeader.Guid, fixedHeader.Kind);
@@ -638,7 +639,7 @@ internal sealed class BtGraphView : GraphView
                 isAssetDirty = true;
             }
         }
-        
+
         GraphStructureChanged?.Invoke();
         if (change.elementsToRemove != null)
         {
@@ -655,7 +656,7 @@ internal sealed class BtGraphView : GraphView
 
                     if (removedEdge.input?.node is not BtNodeView childNodeView)
                         continue;
-                    
+
                     if (GraphAsset.RootNode != null &&
                         parentNodeView.Guid == GraphAsset.RootNode.Guid)
                     {
@@ -666,7 +667,7 @@ internal sealed class BtGraphView : GraphView
                         childHead.ParentGuid = null;
                         isAssetDirty = true;
                     }
-                    
+
                     int parentIndex = GraphAsset.FindHeaderIndex(parentNodeView.Guid);
                     int childIndex = GraphAsset.FindHeaderIndex(childNodeView.Guid);
                     if (parentIndex < 0 || childIndex < 0)
@@ -674,8 +675,8 @@ internal sealed class BtGraphView : GraphView
 
                     BtNodeHeader parentHeader = GraphAsset.Nodes[parentIndex];
                     BtNodeHeader childHeader = GraphAsset.Nodes[childIndex];
-                    
-                    
+
+
                     if (!IsComposite(parentHeader.Kind))
                         continue;
 
@@ -706,14 +707,14 @@ internal sealed class BtGraphView : GraphView
             {
                 if (element is not BtNodeView nodeView)
                     continue;
-                
+
                 if (nodeView.Kind == BtNodeKind.Root)
                 {
                     GraphAsset.RootNode.Position = nodeView.GetPosition().position;
                     isAssetMovedDirty = true;
                     continue;
                 }
-                
+
                 int headerIndex = GraphAsset.FindHeaderIndex(nodeView.Guid);
                 if (headerIndex < 0)
                     continue;
@@ -756,7 +757,7 @@ internal sealed class BtGraphView : GraphView
 
         if (isAssetMovedDirty && !isAssetDirty)
             EditorUtility.SetDirty(GraphAsset);
-        
+
         if (isAssetDirty)
             GraphAsset.MarkModified();
             //EditorUtility.SetDirty(GraphAsset);
@@ -768,10 +769,10 @@ internal sealed class BtGraphView : GraphView
                 ReloadWithoutLog();
             });
         }
-        
+
         return change;
     }
-    
+
     public bool WouldCreateCycle(BtNodeView parentNode, BtNodeView childNode)
     {
         if (GraphAsset == null)
@@ -817,7 +818,7 @@ internal sealed class BtGraphView : GraphView
 
         return false;
     }
-    
+
     public void ResetViewToOrigin()
     {
         float width = layout.width;

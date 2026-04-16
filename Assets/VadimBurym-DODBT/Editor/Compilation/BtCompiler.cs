@@ -1,10 +1,11 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
-#if ODIN_INSPECTOR 
+#if ODIN_INSPECTOR
 using System.Collections.Generic;
 using VadimBurym.DodBehaviourTree;
 
@@ -19,7 +20,7 @@ internal static class BtCompiler
     private static readonly List<ParallelNode> _parallelNodes = new();
     private static readonly List<LeafData>  _leafs = new();
     private static readonly List<string> _guidsByCompiled = new();
-    
+
     internal static string TryCompileAsset(BtGraphAsset asset, BehaviourTreeAsset compiled)
     {
         var root = asset.FindHeader(asset.RootNode.ChildrenGuid);
@@ -43,7 +44,7 @@ internal static class BtCompiler
             nodeData.ParentIndex = parent != -1 ? (ushort)parent : (ushort)0xFFFF;
             _nodes[i] = nodeData;
         }
-        
+
         compiled.SetupCompiledTree(
             _nodes.ToArray(),
             0,
@@ -71,7 +72,7 @@ internal static class BtCompiler
                 var selectorChildren = selectorData.ChildrenGuids;
                 if (selectorChildren.Count == 0) return "One of your Selectors does not have children.";
                 _nodes.Add(new Node {
-                    Id = NodeId.Selector, 
+                    Id = NodeId.Selector,
                     DataIndex = Convert(_selectorNodes.Count) });
                 _selectorNodes.Add(new SelectorNode {
                     FirstChild = Convert(_nodes.Count + _nodesQueue.Count),
@@ -150,7 +151,7 @@ internal static class BtCompiler
         }
         return "Unknown Node Type";
     }
-    
+
     private static void ClearBuffers()
     {
         _leafs.Clear();

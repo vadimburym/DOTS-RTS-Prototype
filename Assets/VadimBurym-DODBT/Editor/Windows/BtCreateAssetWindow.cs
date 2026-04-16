@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using System;
@@ -40,7 +41,7 @@ internal sealed class BtCreateAssetWindow : EditorWindow
     private void BuildUI(string initialName)
     {
         rootVisualElement.Clear();
-        
+
         var root = new VisualElement();
         root.style.flexGrow = 1;
         root.style.backgroundColor = new Color(0.12f, 0.12f, 0.12f, 1f);
@@ -49,7 +50,7 @@ internal sealed class BtCreateAssetWindow : EditorWindow
         root.style.paddingTop = 12;
         root.style.paddingBottom = 12;
         rootVisualElement.Add(root);
-        
+
         var body = new VisualElement();
         body.style.flexGrow = 1;
         body.style.paddingLeft = 6;
@@ -67,7 +68,7 @@ internal sealed class BtCreateAssetWindow : EditorWindow
             messageLabel.style.marginBottom = 12;
             body.Add(messageLabel);
         }
-        
+
         var fieldCard = new VisualElement();
         fieldCard.style.backgroundColor = new Color(0.08f, 0.08f, 0.08f, 1f);
         fieldCard.style.borderTopLeftRadius = 10;
@@ -99,7 +100,7 @@ internal sealed class BtCreateAssetWindow : EditorWindow
         nameField.style.height = 26;
         nameField.style.unityTextAlign = TextAnchor.MiddleLeft;
         fieldCard.Add(nameField);
-        
+
         var footer = new VisualElement();
         footer.style.height = 58;
         footer.style.marginTop = 10;
@@ -198,7 +199,7 @@ internal sealed class BtCreateAssetWindow : EditorWindow
             position = new Rect(x, y, pos.width, pos.height);
             return;
         }
-        
+
         Rect screen = GetScreenRect();
         float sx = screen.x + (screen.width - pos.width) * 0.5f;
         float sy = screen.y + (screen.height - pos.height) * 0.5f;

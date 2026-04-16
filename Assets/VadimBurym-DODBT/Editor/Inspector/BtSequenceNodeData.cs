@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ using System.Collections.Generic;
 [Serializable]
 internal sealed class BtSequenceNodeData
 {
-    public string Guid; 
+    public string Guid;
     public List<string> ChildrenGuids = new();
 }

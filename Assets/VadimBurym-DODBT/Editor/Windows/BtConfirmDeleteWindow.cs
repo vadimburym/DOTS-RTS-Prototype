@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using System;
@@ -41,7 +42,7 @@ internal sealed class BtConfirmDeleteWindow : EditorWindow
         root.style.paddingTop = 12;
         root.style.paddingBottom = 12;
         rootVisualElement.Add(root);
-        
+
         var body = new VisualElement();
         body.style.flexGrow = 1;
         body.style.paddingLeft = 6;
@@ -88,7 +89,7 @@ internal sealed class BtConfirmDeleteWindow : EditorWindow
 
         row.Add(noButton);
         row.Add(yesButton);
-        
+
         root.RegisterCallback<KeyDownEvent>(evt =>
         {
             if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
@@ -146,7 +147,7 @@ internal sealed class BtConfirmDeleteWindow : EditorWindow
             position = new Rect(x, y, pos.width, pos.height);
             return;
         }
-        
+
         Rect screen = GetScreenRect();
         float sx = screen.x + (screen.width - pos.width) * 0.5f;
         float sy = screen.y + (screen.height - pos.height) * 0.5f;

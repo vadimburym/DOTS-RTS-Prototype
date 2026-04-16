@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using System;
@@ -19,11 +20,11 @@ internal sealed class BtEditorWindow : EditorWindow
 {
     private BtGraphView _graphView;
     private BtNodeView _selectedNodeView;
-    
+
     private ObjectField _graphAssetField;
     private Label _nodesCountLabel;
     private Label _leafNodesCountLabel;
-    
+
     private TextField _nameField;
     private EnumField _kindField;
     private Label _childrenOrderLabel;
@@ -33,10 +34,10 @@ internal sealed class BtEditorWindow : EditorWindow
     private IMGUIContainer _odinDetailsContainer;
     private PropertyTree _selectedNodeTree;
     private string _selectedNodeTreeGuid;
-    
+
     private ScrollView _outputScroll;
     private Label _outputLabel;
-    
+
     private bool _isReadOnly;
     private BtMonoDebug _monoDebug;
 
@@ -50,7 +51,7 @@ internal sealed class BtEditorWindow : EditorWindow
         window.Enable();
         window.Show();
     }
-    
+
     internal static void OpenWithAsset(BtGraphAsset asset)
     {
         var window = GetWindow<BtEditorWindow>();
@@ -75,7 +76,7 @@ internal sealed class BtEditorWindow : EditorWindow
         window._monoDebug = monoDebug;
         window.rootVisualElement.schedule.Execute(() => window.SetCurrentGraphAsset(asset));
     }
-    
+
     private void Enable()
     {
         rootVisualElement.Clear();
@@ -83,7 +84,7 @@ internal sealed class BtEditorWindow : EditorWindow
         root.style.flexDirection = FlexDirection.Column;
         root.style.flexGrow = 1;
         rootVisualElement.Add(root);
-        
+
         var toolbar = new Toolbar();
         toolbar.style.alignItems = Align.Center;
         var buttonNew = new Button(OpenCreateNewAssetWindow) { text = "New" };
@@ -123,7 +124,7 @@ internal sealed class BtEditorWindow : EditorWindow
         _leafNodesCountLabel.style.marginRight = 8;
         toolbar.Add(_leafNodesCountLabel);
         root.Add(toolbar);
-        
+
         var mainSplit = new TwoPaneSplitView(1, 360, TwoPaneSplitViewOrientation.Horizontal);
         mainSplit.style.flexGrow = 1;
         root.Add(mainSplit);
@@ -148,7 +149,7 @@ internal sealed class BtEditorWindow : EditorWindow
             ClearDetails();
             RefreshCounters();
         });
-        
+
         mainSplit.Add(_graphView);
         mainSplit.Add(BuildDetailsPanel());
         root.Add(BuildOutputPanel());
@@ -171,7 +172,7 @@ internal sealed class BtEditorWindow : EditorWindow
         _graphView.Add(BuildDebugModeBanner());
         root.Add(_graphView);
     }
-    
+
     private void OnDisable()
     {
         if (_graphView != null)
@@ -191,7 +192,7 @@ internal sealed class BtEditorWindow : EditorWindow
             return;
         _graphView.SetDebugStatus(_monoDebug.DebugStatus);
     }
-    
+
     private VisualElement BuildDebugModeBanner()
     {
         var overlay = new VisualElement();
@@ -200,7 +201,7 @@ internal sealed class BtEditorWindow : EditorWindow
         overlay.style.left = 0;
         overlay.style.right = 0;
         overlay.style.alignItems = Align.Center;
-        
+
         var card = new VisualElement();
         card.style.flexDirection = FlexDirection.Column;
         card.style.alignItems = Align.Center;
@@ -221,7 +222,7 @@ internal sealed class BtEditorWindow : EditorWindow
         card.style.borderRightColor = new Color(1f, 1f, 1f, 0.12f);
         card.style.borderTopColor = new Color(1f, 1f, 1f, 0.12f);
         card.style.borderBottomColor = new Color(1f, 1f, 1f, 0.12f);
-        
+
         var title = new Label("DEBUG-MODE");
         title.style.unityFontStyleAndWeight = FontStyle.Bold;
         title.style.fontSize = 13;
@@ -239,7 +240,7 @@ internal sealed class BtEditorWindow : EditorWindow
             wrap.style.flexDirection = FlexDirection.Row;
             wrap.style.alignItems = Align.Center;
             wrap.style.marginRight = 14;
-            
+
             var dot = new VisualElement();
             dot.style.width = 10;
             dot.style.height = 10;
@@ -265,7 +266,7 @@ internal sealed class BtEditorWindow : EditorWindow
         overlay.Add(card);
         return overlay;
     }
-    
+
     private VisualElement BuildDetailsPanel()
     {
         var details = new VisualElement();
@@ -280,7 +281,7 @@ internal sealed class BtEditorWindow : EditorWindow
         headerLabel.style.fontSize = 14;
         headerLabel.style.marginBottom = 8;
         details.Add(headerLabel);
-        
+
         _nameField = new TextField("Name");
         _nameField.SetEnabled(false);
         details.Add(_nameField);
@@ -300,26 +301,26 @@ internal sealed class BtEditorWindow : EditorWindow
         _childrenOrderLabel.style.marginTop = 4; // чуть ниже заголовка
         _childrenOrderLabel.style.color = new Color(1f, 1f, 1f, 0.75f);
         details.Add(_childrenOrderLabel);
-        
+
         var bigSpacer = new VisualElement();
         bigSpacer.style.height = 22;
         details.Add(bigSpacer);
-        
+
         var nodeSettingsHeader = new Label("Node settings");
         nodeSettingsHeader.style.unityFontStyleAndWeight = FontStyle.Bold;
         nodeSettingsHeader.style.fontSize = 13;
         nodeSettingsHeader.style.marginBottom = 8;
         nodeSettingsHeader.style.marginTop = 2;
         details.Add(nodeSettingsHeader);
-        
+
         _odinDetailsContainer = new IMGUIContainer(DrawDetailsOdin);
         _odinDetailsContainer.style.marginTop = 2;
         details.Add(_odinDetailsContainer);
-        
+
         var bigSpacer2 = new VisualElement();
         bigSpacer2.style.height = 22;
         details.Add(bigSpacer2);
-        
+
         _descriptionTitleLabel = new Label("Description");
         _descriptionTitleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         _descriptionTitleLabel.style.marginTop = 12;
@@ -330,7 +331,7 @@ internal sealed class BtEditorWindow : EditorWindow
         _descriptionTextLabel.style.color = new Color(1f, 1f, 1f, 0.85f);
         details.Add(_descriptionTitleLabel);
         details.Add(_descriptionTextLabel);
-        
+
         _nameField.RegisterValueChangedCallback(eventData =>
         {
             if (_selectedNodeView == null)
@@ -446,7 +447,7 @@ internal sealed class BtEditorWindow : EditorWindow
         }
         _descriptionTextLabel.text = description;
     }
-    
+
     private void UpdateChildrenOrderInDetails(BtNodeView nodeView)
     {
         var graphAsset = _graphView.GraphAsset;
@@ -670,7 +671,7 @@ internal sealed class BtEditorWindow : EditorWindow
             _outputScroll.verticalScroller.value = _outputScroll.verticalScroller.highValue;
         }).StartingIn(1);
     }
-    
+
     private void OpenCreateNewAssetWindow()
     {
         BtCreateAssetWindow.Open(
@@ -684,15 +685,15 @@ internal sealed class BtEditorWindow : EditorWindow
                 var asset = ScriptableObject.CreateInstance<BtGraphAsset>();
                 string assetPath = AssetDatabase.GenerateUniqueAssetPath($"{folderPath}/{newAssetName}-graph.asset");
                 AssetDatabase.CreateAsset(asset, assetPath);
-                
+
                 var assetPathGuid = AssetDatabase.AssetPathToGUID(assetPath);
-                
+
                 folderPath = BtEditorPaths.GetAssetsFolderPath();
                 BtEditorPaths.EnsureFolderExists(folderPath);
                 var compiledAsset = ScriptableObject.CreateInstance<BehaviourTreeAsset>();
                 assetPath = AssetDatabase.GenerateUniqueAssetPath($"{folderPath}/{newAssetName}-compiled.asset");
                 AssetDatabase.CreateAsset(compiledAsset, assetPath);
-                
+
                 asset.CompiledAsset = compiledAsset;
                 compiledAsset.InternalGUID = assetPathGuid;
                 asset.RootNode = new BtRootNodeData
@@ -705,7 +706,7 @@ internal sealed class BtEditorWindow : EditorWindow
                 asset.NodesCount = 0;
                 asset.LeafNodesCount = 0;
                 asset.MarkModified();
-                
+
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
                 SetCurrentGraphAsset(asset);
@@ -732,7 +733,7 @@ internal sealed class BtEditorWindow : EditorWindow
             {
                 string folderPath = BtEditorPaths.GetEditorAssetsFolderPath();
                 BtEditorPaths.EnsureFolderExists(folderPath);
-                
+
                 //var clone = SerializationUtility.DeserializeValue<BtGraphAsset>(
                 //    SerializationUtility.SerializeValue(sourceAsset, DataFormat.Binary),
                 //    DataFormat.Binary);
@@ -741,9 +742,9 @@ internal sealed class BtEditorWindow : EditorWindow
                 clone.CreationDate = System.DateTime.Now.ToString("G", CultureInfo.CurrentCulture);
                 string newPath = AssetDatabase.GenerateUniqueAssetPath($"{folderPath}/{newAssetName}-graph.asset");
                 AssetDatabase.CreateAsset(clone, newPath);
-                
+
                 var assetPathGuid = AssetDatabase.AssetPathToGUID(newPath);
-                
+
                 folderPath = BtEditorPaths.GetAssetsFolderPath();
                 BtEditorPaths.EnsureFolderExists(folderPath);
                 //var cloneCompiled = SerializationUtility.DeserializeValue<BehaviourTreeAsset>(
@@ -753,7 +754,7 @@ internal sealed class BtEditorWindow : EditorWindow
                 cloneCompiled.name = newAssetName;
                 string newCompiledPath = AssetDatabase.GenerateUniqueAssetPath($"{folderPath}/{newAssetName}-compiled.asset");
                 AssetDatabase.CreateAsset(cloneCompiled, newCompiledPath);
-                
+
                 clone.CompiledAsset = cloneCompiled;
                 cloneCompiled.InternalGUID = assetPathGuid;
                 clone.NotActualCompiledVersion = clone.LastModifiedDate != clone.CompiledVersion;
@@ -854,7 +855,7 @@ internal sealed class BtEditorWindow : EditorWindow
                 Log("Graph asset deleted.", LogLevel.Info, isImportant: true);
             });
     }
-    
+
     internal void SetCurrentGraphAsset(BtGraphAsset asset)
     {
         if (_isReadOnly)
@@ -867,7 +868,7 @@ internal sealed class BtEditorWindow : EditorWindow
         ClearDetails();
         RefreshCounters();
     }
-    
+
     internal void RefreshCounters()
     {
         var asset = _graphView?.GraphAsset;
@@ -876,7 +877,7 @@ internal sealed class BtEditorWindow : EditorWindow
         _nodesCountLabel.text = $"Nodes: {nodes}";
         _leafNodesCountLabel.text = $"Leafs: {leafs}";
     }
-    
+
     private void OnCompileClicked()
     {
         var graphAsset = _graphView?.GraphAsset;
@@ -908,7 +909,7 @@ internal sealed class BtEditorWindow : EditorWindow
         PingCompiledAsset(graphAsset.CompiledAsset);
         graphAsset.SetupNewCompiledVersion();
     }
-    
+
     private void PingCompiledAsset(BehaviourTreeAsset compiledAsset)
     {
         if (compiledAsset == null)

@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 using System.IO;
 using UnityEditor;
@@ -19,7 +20,7 @@ internal static class BtEditorPaths
         //    return "Assets/Assets";
         //return $"{parentPath}/Assets";
     }
-    
+
     internal static string GetEditorAssetsFolderPath()
     {
         return "Assets/VadimBurym-DODBT/Local/Assets";
@@ -29,7 +30,7 @@ internal static class BtEditorPaths
         //    return "Assets/Editor/Assets";
         //return $"{parentUnityPath}/Assets";
     }
-    
+
     internal static string GetEditorWindowFolderPath()
     {
         string[] guids = AssetDatabase.FindAssets("BtEditorWindow t:MonoScript");
@@ -38,7 +39,7 @@ internal static class BtEditorPaths
         string scriptPath = AssetDatabase.GUIDToAssetPath(guids[0]);
         return Path.GetDirectoryName(scriptPath)?.Replace('\\', '/') ?? "Assets";
     }
-    
+
     internal static void EnsureFolderExists(string folderPath)
     {
         if (AssetDatabase.IsValidFolder(folderPath))

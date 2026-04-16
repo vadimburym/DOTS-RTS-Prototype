@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -21,7 +22,7 @@ namespace VadimBurym.DodBehaviourTree
     public sealed class BehaviourTreeAsset : ScriptableObject
     {
         public string GUID => InternalGUID;
-        
+
         [SerializeField, HideInInspector] internal string InternalGUID;
         [SerializeField, HideInInspector] internal int RootIndex;
         [SerializeField, HideInInspector] internal Node[] Nodes;
@@ -40,7 +41,7 @@ namespace VadimBurym.DodBehaviourTree
         {
             //nodesBuffer.Clear();
             //leafsBuffer.Clear();
-            
+
             const ushort None = 0xFFFF;
             ushort leafIndex = 0;
             for (int i = 0; i < Nodes.Length; i++)
@@ -63,12 +64,12 @@ namespace VadimBurym.DodBehaviourTree
                     StateEntity = Entity.Null
                 });
         }
-        
+
         public BlobAssetReference<BehaviourTreeBlob> CreateBlob()
         {
             var builder = new BlobBuilder(Allocator.Temp);
             ref var root = ref builder.ConstructRoot<BehaviourTreeBlob>();
-            
+
             var nodes = builder.Allocate(ref root.Nodes, Nodes.Length);
             for (int i = 0; i < Nodes.Length; i++)
                 nodes[i] = Nodes[i];
@@ -96,7 +97,7 @@ namespace VadimBurym.DodBehaviourTree
             builder.Dispose();
             return blob;
         }
-        
+
 #if UNITY_EDITOR
         internal void SetupCompiledTree(
             Node[] nodes,

@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using System;
@@ -22,7 +23,7 @@ internal sealed class BtNodeView : Node
     public static readonly Vector2 DefaultSize = new Vector2(320, 50);
     private const float PortPillWidth = 56f;
     private const float PortPillHeight = 15f;
-    
+
     public string Guid { get; }
     public string Title;
     public BtNodeKind Kind { get; }
@@ -33,7 +34,7 @@ internal sealed class BtNodeView : Node
     private BtGraphAsset _graphAsset;
     private Action<string> _onDataChanged;
     private Action _onPortsColorChanged;
-    
+
     private IntegerField _integerFieldOne;
     private IntegerField _integerFieldTwo;
     private Toggle _boolToggleOne;
@@ -41,20 +42,20 @@ internal sealed class BtNodeView : Node
 
     private VisualElement _outputVisual;
     private VisualElement _inputVisual;
-    
+
     private IMGUIContainer _leafOdinContainer;
     private PropertyTree _leafNodeTree;
-    
+
     private bool _isReadOnly;
     private Color _currentDebugColor = new Color(0.10f, 0.70f, 1.00f, 1f);
-    
+
     internal BtNodeView(string guid, BtNodeKind kind, string title, IEdgeConnectorListener edgeConnectorListener)
     {
         Guid = guid;
         Kind = kind;
         this.title = title;
         Title = title;
-        
+
         titleContainer.style.justifyContent = Justify.Center;
         titleContainer.style.alignItems = Align.Center;
 
@@ -65,7 +66,7 @@ internal sealed class BtNodeView : Node
             titleLabel.style.fontSize = 17;
             titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
         }
-        
+
         style.width = 320;
         style.minHeight = 50;
         style.overflow = Overflow.Visible;
@@ -78,7 +79,7 @@ internal sealed class BtNodeView : Node
         extensionContainer.style.backgroundColor = new Color(0.14f, 0.14f, 0.14f, 1f);
         extensionContainer.style.borderBottomLeftRadius = 11;
         extensionContainer.style.borderBottomRightRadius = 11;
-  
+
         style.borderTopLeftRadius = 12;
         style.borderTopRightRadius = 12;
         style.borderBottomLeftRadius = 12;
@@ -96,7 +97,7 @@ internal sealed class BtNodeView : Node
         titleContainer.style.borderTopLeftRadius = 11;
         titleContainer.style.borderTopRightRadius = 11;
         titleContainer.style.height = 50;
-        
+
         mainContainer.style.borderTopWidth = 4;
         mainContainer.style.borderTopColor = kind switch
         {
@@ -135,7 +136,7 @@ internal sealed class BtNodeView : Node
             inputHost.Add(_inputVisual);
             Add(inputHost);
         }
-        
+
         RefreshPorts();
         RefreshExpandedState();
         RegisterCallback<DetachFromPanelEvent>(_ => DisposeNodeTrees());
@@ -165,7 +166,7 @@ internal sealed class BtNodeView : Node
 
         InputPort?.MarkDirtyRepaint();
         OutputPort?.MarkDirtyRepaint();
-        
+
         style.borderLeftWidth = 6;
         style.borderRightWidth = 6;
         style.borderTopWidth = 6;
@@ -175,12 +176,12 @@ internal sealed class BtNodeView : Node
         style.borderRightColor = _currentDebugColor;
         style.borderTopColor = _currentDebugColor;
         style.borderBottomColor = _currentDebugColor;
-        
+
         MarkDirtyRepaint();
         RefreshPorts();
         _onPortsColorChanged?.Invoke();
     }
-    
+
     private static void ForceRepaintEdges(Port port)
     {
         if (port == null)
@@ -196,7 +197,7 @@ internal sealed class BtNodeView : Node
         port.MarkDirtyRepaint();
         port.parent?.MarkDirtyRepaint();
     }
-    
+
     public void Bind(BtGraphAsset graphAsset, Action<string> onDataChanged, bool isReadOnly, Action onPortsColorChanged)
     {
         _isReadOnly = isReadOnly;
@@ -213,7 +214,7 @@ internal sealed class BtNodeView : Node
             if (_outputVisual != null)
                 _outputVisual.style.display = DisplayStyle.None;
         }
-        
+
         BuildInlineInspectorUI();
         RefreshFromAsset();
     }
@@ -222,7 +223,7 @@ internal sealed class BtNodeView : Node
     {
         if (_graphAsset == null)
             return;
-        
+
         int headerIndex = _graphAsset.FindHeaderIndex(Guid);
         if (headerIndex >= 0)
         {
@@ -410,7 +411,7 @@ internal sealed class BtNodeView : Node
             RefreshPorts();
         }
     }
-    
+
     private void EnsureLeafTree()
     {
         if (_leafNodeTree != null)
@@ -431,7 +432,7 @@ internal sealed class BtNodeView : Node
         bool prevGuiEnabled = GUI.enabled;
         if (_isReadOnly)
             GUI.enabled = false;
-        
+
         EnsureLeafTree();
         if (_leafNodeTree == null)
             return;
@@ -444,9 +445,9 @@ internal sealed class BtNodeView : Node
             GUI.enabled = prevGuiEnabled;
             return;
         }
-        
+
         Undo.RecordObject(_graphAsset, "BT Leaf Change");
-        
+
         BtLeafNodeData leafData = _graphAsset.FindLeafData(Guid);
         string typeBefore = leafData?.Leaf == null ? null : leafData.Leaf.GetType().FullName;
 
@@ -454,7 +455,7 @@ internal sealed class BtNodeView : Node
         var leafProperty = _leafNodeTree.RootProperty.Children["Leaf"];
         leafProperty?.Draw();
         _leafNodeTree.EndDraw();
-        
+
         string typeAfter = leafData?.Leaf == null ? null : leafData.Leaf.GetType().FullName;
         bool typeChanged = typeBefore != typeAfter;
 
@@ -542,14 +543,14 @@ internal sealed class BtNodeView : Node
             port.style.right = -4;
         else
             port.style.left = -4;
-        
+
         port.style.top = 0;
         port.style.opacity = 0;
         port.pickingMode = PickingMode.Position;
-        
+
         port.portColor = new Color(0.10f, 0.70f, 1.00f, 1f);
         //port.RegisterCallback<AttachToPanelEvent>(_ => port.MarkDirtyRepaint());
-        
+
         port.AddManipulator(new EdgeConnector<Edge>(edgeConnectorListener));
         return port;
     }

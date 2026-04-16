@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 using System.Collections.Generic;
 using UnityEditor;
@@ -21,7 +22,7 @@ internal sealed class BtGraphAsset : ScriptableObject
 {
     [HideInInspector] public BehaviourTreeAsset CompiledAsset;
     [HideInInspector] public string[] GuidsByCompiledId;
-    
+
 #if ODIN_INSPECTOR
     [ReadOnly] public string CreationDate;
     [ReadOnly] public string LastModifiedDate;
@@ -35,7 +36,7 @@ internal sealed class BtGraphAsset : ScriptableObject
     [HideInInspector] public int NodesCount;
     [HideInInspector] public int LeafNodesCount;
 #endif
-    
+
     [HideInInspector] public bool NotActualCompiledVersion;
     [HideInInspector] public BtRootNodeData RootNode;
     [HideInInspector] public List<BtNodeHeader> Nodes = new();
@@ -54,7 +55,7 @@ internal sealed class BtGraphAsset : ScriptableObject
     [Button("Open In Editor", ButtonSizes.Large)] //[GUIColor(0.45f, 0.55f, 0.95f)]
     internal void OpenAsset() => BtEditorWindow.OpenWithAsset(this);
     internal bool NotActualCompiled() => NotActualCompiledVersion;
-    
+
     internal int FindHeaderIndex(string guid)
     {
         for (int i = 0; i < Nodes.Count; i++)
@@ -74,7 +75,7 @@ internal sealed class BtGraphAsset : ScriptableObject
             if (LeafNodes[i].Guid == guid) return LeafNodes[i];
         return null;
     }
-    
+
     internal BtSequenceNodeData FindSequenceData(string guid)
     {
         for (int i = 0; i < SequenceNodes.Count; i++)
@@ -88,7 +89,7 @@ internal sealed class BtGraphAsset : ScriptableObject
             if (MemorySequenceNodes[i].Guid == guid) return MemorySequenceNodes[i];
         return null;
     }
-    
+
     internal BtSelectorNodeData FindSelectorData(string guid)
     {
         for (int i = 0; i < SelectorNodes.Count; i++)
@@ -102,7 +103,7 @@ internal sealed class BtGraphAsset : ScriptableObject
             if (MemorySelectorNodes[i].Guid == guid) return MemorySelectorNodes[i];
         return null;
     }
-    
+
     internal BtParallelNodeData FindParallelData(string guid)
     {
         for (int i = 0; i < ParallelNodes.Count; i++)
@@ -153,7 +154,7 @@ internal sealed class BtGraphAsset : ScriptableObject
         EditorUtility.SetDirty(this);
         EditorUtility.SetDirty(CompiledAsset);
     }
-    
+
     internal void MarkModified()
     {
         LastModifiedDate = System.DateTime.Now.ToString("G", System.Globalization.CultureInfo.CurrentCulture);
