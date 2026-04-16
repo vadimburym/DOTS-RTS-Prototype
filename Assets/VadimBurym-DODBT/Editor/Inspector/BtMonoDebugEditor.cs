@@ -1,8 +1,9 @@
-// DODBT (Data Oriented Design Behaviour Tree for Unity)
-// Repository: https://github.com/vadimburym/DODBT
-// Copyright (c) 2026 vadimburym (Vadim Burym)
-// Licensed under the Custom Game-Use and Redistribution License.
-// See LICENSE file in the project root for full license information.
+//License
+//- Repository: https://github.com/vadimburym/DOTS-Battle-Simulator-Prototype/tree/main/Assets/VadimBurym-DODBT
+//- Copyright (c) 2026 vadimburym (Vadim Burym)
+//- The repository root is licensed under a custom source-available license in LICENSE.md.
+//- Assets/VadimBurym-DODBT is licensed separately under Assets/VadimBurym-DODBT/LICENSE.md.
+//- Third-party assets and packages remain under their respective owners’ terms.
 
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
@@ -16,7 +17,7 @@ internal sealed class BtMonoDebugEditor : OdinEditor
 {
     private Editor compiledEditor;
     private BtGraphAsset graphAsset;
-    
+
     private void OpenDebugMode()
     {
         if (graphAsset == null)
@@ -25,7 +26,7 @@ internal sealed class BtMonoDebugEditor : OdinEditor
         }
         BtEditorWindow.OpenWithDebugMode(graphAsset, (BtMonoDebug)target);
     }
-    
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -36,7 +37,7 @@ internal sealed class BtMonoDebugEditor : OdinEditor
         var path = UnityEditor.AssetDatabase.GUIDToAssetPath(btAsset.GUID);
         graphAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<BtGraphAsset>(path);
     }
-    
+
     public override void OnInspectorGUI()
     {
         if (graphAsset == null)
@@ -49,7 +50,7 @@ internal sealed class BtMonoDebugEditor : OdinEditor
         {
             EditorGUILayout.HelpBox("The compiled version is different from the current version of the graph. Open in Editor and compile the asset to the current version.", MessageType.Warning);
         }
-        
+
         using (new EditorGUI.DisabledScope(graphAsset == null || graphAsset.LastModifiedDate != graphAsset.CompiledVersion))
         {
             if (SirenixEditorGUI.Button("Open In Debug-Mode", ButtonSizes.Large))
