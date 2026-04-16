@@ -1,3 +1,4 @@
+```text
 DOTS Battle Simulator Prototype Source-Available License
 Version 1.0
 
@@ -167,3 +168,4 @@ Assets/VadimBurym-DODBT
 9. Приоритет версии
 Если лицензия опубликована на нескольких языках, при любых расхождениях
 приоритет имеет английская версия.
+```
